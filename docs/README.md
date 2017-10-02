@@ -17,7 +17,7 @@ The app will be a single screen that contains a world map and a legend with a fe
 
 Users will be able to hover over different countries on the world map in which a pop up will appear with health statistics for that particular country.  
 
-![](resources/health_map_wireframe.png)
+![](health_map_wireframe.png)
 
 ## Architecture and Technologies
 This app will be implemented with the following technologies:
