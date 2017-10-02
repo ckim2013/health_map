@@ -1,0 +1,25 @@
+{
+  "name": "health_map",
+  "version": "1.0.0",
+  "description": "## Background and Overview Before I started programming, I was a biologist who researched diseases in hopes of one day, improving the lives of people around the world healthier.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckim2013/health_map.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ckim2013/health_map/issues"
+  },
+  "homepage": "https://github.com/ckim2013/health_map#readme",
+  "dependencies": {
+    "d3": "^4.10.2",
+    "topojson": "^3.0.2",
+    "webpack": "^3.6.0"
+  }
+}
