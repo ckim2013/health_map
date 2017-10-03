@@ -9023,9 +9023,9 @@ const svg = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#map')
               .append('svg')
               .attr('width', width)
               .attr('height', height);
-              // .append('g');
 
 const projection = __WEBPACK_IMPORTED_MODULE_0_d3__["b" /* geoMercator */]()
+.rotate([-9.5, 0])
                    .translate([width/2, height/2]);
 
 const path = __WEBPACK_IMPORTED_MODULE_0_d3__["c" /* geoPath */]()
@@ -9034,12 +9034,6 @@ const path = __WEBPACK_IMPORTED_MODULE_0_d3__["c" /* geoPath */]()
 const color = __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* scaleThreshold */]()
    .domain([0, 500, 1000, 5000, 10000, 20000])
    .range(["#efefef", "#f7bbcb", "#fc99b4", "#ff668f", "#fc2d64"]);
-
-
-// d3.queue()
-//   .defer(d3.json, '../data/countries.geo.json')
-//   .defer(d3.csv, '../data/aids_date_data.csv')
-//   .await(ready);
 
 function ready(error, countries, disease) {
   if (error) throw error;
@@ -9095,16 +9089,32 @@ function update(dataSet) {
   .await(ready);
 }
 
-update('../data/aids_date_data.csv');
+update('../data/malaria_date_data.csv');
 
-// let inputValue = null;
-// let year = ['2016', '2010', '2005', '2000'];
+
+
+let years = ['2016', '2010', '2005', '2000'];
 
 __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#timeslider').on('input', function() {
-  console.log('insideeeee');
-  update('../data/malaria_date_data.csv');
+  console.log('inside timeslider');
+  const disease = document.getElementById('diseasedrop').value;
+  const year = years[document.getElementById('timeslider').value];
+  console.log(disease);
+  console.log(year);
+  update('../data/aids_date_data.csv');
 });
-//
+
+__WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#diseasedrop').on('change', function() {
+  console.log('inside diseasedrop');
+  const disease = document.getElementById('diseasedrop').value;
+  const year = years[document.getElementById('timeslider').value];
+  console.log(disease);
+  console.log(year);
+  const filepath = `../data/${disease}_${year}_data.csv`;
+  console.log(filepath);
+});
+
+
 // function update(value) {
 //   document.getElementById('year').innerHTML = year[value];
 //   inputValue = year[value];
