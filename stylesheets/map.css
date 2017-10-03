@@ -1,3 +1,7 @@
 svg {
-  background: #82CAFF;
+  background: #c1d8f6;
+}
+
+.country:hover {
+  fill: yellow;
 }
