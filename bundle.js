@@ -9032,17 +9032,20 @@ const projection = __WEBPACK_IMPORTED_MODULE_0_d3__["c" /* geoMercator */]()
 const path = __WEBPACK_IMPORTED_MODULE_0_d3__["d" /* geoPath */]()
              .projection(projection);
 
+const redColor = ["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"];
+const redDomain = [0, 500, 5000, 10000, 50000, 100000];
+const blueColor = ["#edeced", "#7070B7", "#4A4A9C", "#1F1F70", "#0C0C54"];
+const blueDomain = [0, 100, 5000, 10000, 30000, 100000];
+
 let color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-   .domain([0, 500, 5000, 10000, 50000, 100000])
-   .range(["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"]);
+   .domain(redDomain)
+   .range(redColor);
 
 const tooltip = __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#map')
                   .append('div')
                   .attr('class', 'tooltip');
-
 tooltip.append('div')
        .attr('class', 'label');
-
 tooltip.append('div')
        .attr('class', 'deaths');
 
@@ -9066,10 +9069,10 @@ function ready(error, countries, disease) {
      .data(countries.features)
      .enter()
      .append('path')
+     .attr('d', path)
      .attr('class', 'country')
      .attr('fill', '#efefef')
      .attr('stroke', '#C0D3D9')
-     .attr('d', path)
      .style('fill', function(d) {
        return color(diseaseByCountry[d.properties.name]);
     })
@@ -9117,11 +9120,11 @@ update('../data/aids_2000_data.csv');
 function selectColor(disease) {
   if (disease === 'malaria') {
     color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-    .domain([0, 100, 5000, 10000, 30000, 100000])
-    .range(["#edeced", "#7070B7", "#4A4A9C", "#1F1F70", "#0C0C54"]);
+    .domain(blueDomain)
+    .range(blueColor);
   } else {
     color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-    .domain([0, 500, 5000, 10000, 50000, 100000])
+    .domain(redDomain)
     .range(["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"]);
   }
 }
