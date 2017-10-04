@@ -9062,7 +9062,7 @@ function ready(error, countries, disease) {
     diseaseByCountry[d.Country] = death;
   });
 
-  svg.select('g').remove();
+  // svg.select('g').remove();
 
   svg.append('g')
      .selectAll('.country')
@@ -9111,9 +9111,10 @@ function ready(error, countries, disease) {
       }
     });
 
-    svg.exit().remove();
+    // svg.exit().remove();
 }
 
+// Function to render the map for the very first time
 function firstMap(dataSet) {
   __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
   .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["e" /* json */], '../data/countries.geo.json')
@@ -9121,7 +9122,54 @@ function firstMap(dataSet) {
   .await(ready);
 }
 
+// Making the legend
+let legend = svg.selectAll('g.legend')
+                .data(color.range().map(function(legendColor) {
+                  console.log('color range', color.range());
+                  let d = color.invertExtent(legendColor);
+                  console.log('before d', d);
+                  if (!d[0] && d[0] !== 0) d[0] = -1;
+                  if (!d[1] && d[1] !== 0) d[1] = 100000;
+                  console.log('after d', d);
+                  return d;
+                }))
+                .enter().append('g')
+                .attr('class', 'legend');
+
+const lsW = 20;
+const lsH = 20;
+const legendLabels = ["< 500", "500 - 5000", "5000 - 10000", "10000 - 50000", "> 50000"];
+
+function legendSetup(disease) {
+  legend.select('rect').remove();
+
+  legend.append('rect')
+  .attr('x', 20)
+  .attr('y', function(d, i) {
+    return height - (i * lsH) - 2*lsH;
+  })
+  .attr('width', lsW)
+  .attr('height', lsH)
+  .style('fill', function(d, i) {
+    console.log(d);
+    return color(d[0]);
+  })
+  .style('opacity', 0.8);
+
+  legend.append('text')
+  .attr('x', 50)
+  .attr('y', function(d, i) {
+    return height - i * lsH - lsH - 4;
+  })
+  .text(function(d, i) {
+    console.log('inside text', d);
+    return legendLabels[i];
+  });
+}
+
+// Making the map and legend appear first!
 firstMap('../data/aids_2000_data.csv');
+legendSetup('malaria');
 
 function selectColor(disease) {
   if (disease === 'malaria') {
@@ -9138,6 +9186,7 @@ function selectColor(disease) {
 function mapSetup() {
   const disease = document.getElementById('diseasedrop').value;
   selectColor(disease);
+  legendSetup(disease);
   const year = years[document.getElementById('timeslider').value];
   const filepath = `../data/${disease}_${year}_data.csv`;
   document.getElementById('year').innerHTML = year;
