@@ -9073,9 +9073,13 @@ function ready(error, countries, disease) {
      .attr('class', 'country')
      .attr('fill', '#efefef')
      .attr('stroke', '#C0D3D9')
+     .transition().duration(500)
+     .style('opacity', 1)
      .style('fill', function(d) {
        return color(diseaseByCountry[d.properties.name]);
-    })
+    });
+
+    svg.selectAll('path')
      .on('mouseover', function(d, i) {
        const country = d.properties.name;
        let deaths = diseaseByCountry[d.properties.name];
@@ -9106,16 +9110,18 @@ function ready(error, countries, disease) {
          alert(`${d.properties.name} had ${diseaseByCountry[d.properties.name]} deaths`);
       }
     });
+
+    svg.exit().remove();
 }
 
-function update(dataSet) {
+function firstMap(dataSet) {
   __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
   .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["e" /* json */], '../data/countries.geo.json')
   .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${dataSet}`)
   .await(ready);
 }
 
-update('../data/aids_2000_data.csv');
+firstMap('../data/aids_2000_data.csv');
 
 function selectColor(disease) {
   if (disease === 'malaria') {
@@ -9125,7 +9131,7 @@ function selectColor(disease) {
   } else {
     color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
     .domain(redDomain)
-    .range(["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"]);
+    .range(redColor);
   }
 }
 
@@ -9147,6 +9153,31 @@ __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#timeslider').on('input', fu
 __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#diseasedrop').on('change', function() {
   mapSetup();
 });
+
+function update(filepath) {
+  __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
+    .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${filepath}`)
+    .await(updateMap);
+}
+
+function updateMap(error, disease) {
+  console.log(disease);
+  let diseaseByCountry = {};
+  disease.forEach(function(d) {
+    let death = Number(d.deaths);
+    if (isNaN(death)) {
+      death = -1;
+    }
+    diseaseByCountry[d.Country] = death;
+  });
+
+  svg.selectAll('path')
+  .transition().duration(300)
+  .style('opacity', 1)
+  .style('fill', function(d) {
+    return color(diseaseByCountry[d.properties.name]);
+ });
+}
 
 
 /***/ }),
