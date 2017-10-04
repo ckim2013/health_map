@@ -9017,7 +9017,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 const width = 1000;
-const height = 600;
+const height = 700;
 
 const svg = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#map')
               .append('svg')
@@ -9025,31 +9025,29 @@ const svg = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#map')
               .attr('height', height);
 
 const projection = __WEBPACK_IMPORTED_MODULE_0_d3__["b" /* geoMercator */]()
-.rotate([-9.5, 0])
+                   .rotate([-9.5, 0])
+                   .center([0, 45])
                    .translate([width/2, height/2]);
 
 const path = __WEBPACK_IMPORTED_MODULE_0_d3__["c" /* geoPath */]()
              .projection(projection);
 
-const color = __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* scaleThreshold */]()
-   .domain([0, 500, 1000, 5000, 10000, 20000])
+let color = __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* scaleThreshold */]()
+   .domain([0, 500, 5000, 10000, 50000, 100000])
    .range(["#efefef", "#f7bbcb", "#fc99b4", "#ff668f", "#fc2d64"]);
 
 function ready(error, countries, disease) {
   if (error) throw error;
-  console.log('inside ready');
-  console.log(disease);
   let diseaseByCountry = {};
 
   disease.forEach(function(d) {
-    let death = Number(d.death_2016);
+    let death = Number(d.deaths);
     if (isNaN(death)) {
       death = -1;
     }
     diseaseByCountry[d.Country] = death;
   });
 
-  console.log(diseaseByCountry);
   svg.append('g')
      .selectAll('.country')
      .data(countries.features)
@@ -9089,37 +9087,38 @@ function update(dataSet) {
   .await(ready);
 }
 
-update('../data/malaria_date_data.csv');
+update('../data/malaria_2015_data.csv');
 
+function selectColor(disease) {
+  if (disease === 'malaria') {
+    color = __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* scaleThreshold */]()
+    .domain([0, 500, 5000, 10000, 50000, 100000])
+    .range(["#efefef", "#5F8FC5", "#3B73B1", "#1C5EA6", "#0B478A"]);
+  } else {
+    color = __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* scaleThreshold */]()
+    .domain([0, 500, 5000, 10000, 50000, 100000])
+    .range(["#efefef", "#f7bbcb", "#fc99b4", "#ff668f", "#fc2d64"]);
+  }
+}
 
+function mapSetup() {
+  const disease = document.getElementById('diseasedrop').value;
+  selectColor(disease);
+  const year = years[document.getElementById('timeslider').value];
+  const filepath = `../data/${disease}_${year}_data.csv`;
+  document.getElementById('year').innerHTML = year;
+  update(filepath);
+}
 
-let years = ['2016', '2010', '2005', '2000'];
+let years = ['2016', '2015', '2010', '2005', '2000'];
 
 __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#timeslider').on('input', function() {
-  console.log('inside timeslider');
-  const disease = document.getElementById('diseasedrop').value;
-  const year = years[document.getElementById('timeslider').value];
-  console.log(disease);
-  console.log(year);
-  update('../data/aids_date_data.csv');
+  mapSetup();
 });
 
 __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#diseasedrop').on('change', function() {
-  console.log('inside diseasedrop');
-  const disease = document.getElementById('diseasedrop').value;
-  const year = years[document.getElementById('timeslider').value];
-  console.log(disease);
-  console.log(year);
-  const filepath = `../data/${disease}_${year}_data.csv`;
-  console.log(filepath);
+  mapSetup();
 });
-
-
-// function update(value) {
-//   document.getElementById('year').innerHTML = year[value];
-//   inputValue = year[value];
-//   console.log('update', inputValue);
-// }
 
 
 /***/ }),

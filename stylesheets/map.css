@@ -1,6 +1,10 @@
-svg {
-  background: #c1d8f6;
+html {
+  background: #C0D3D9;
 }
+
+/*svg {
+  background: #c1d8f6;
+}*/
 
 .country:hover {
   fill: yellow;
