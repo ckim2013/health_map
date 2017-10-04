@@ -9019,22 +9019,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 const width = 1000;
 const height = 700;
 
-const svg = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#map')
+const svg = __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#map')
               .append('svg')
               .attr('width', width)
               .attr('height', height);
 
-const projection = __WEBPACK_IMPORTED_MODULE_0_d3__["b" /* geoMercator */]()
+const projection = __WEBPACK_IMPORTED_MODULE_0_d3__["c" /* geoMercator */]()
                    .rotate([-9.5, 0])
                    .center([0, 45])
                    .translate([width/2, height/2]);
 
-const path = __WEBPACK_IMPORTED_MODULE_0_d3__["c" /* geoPath */]()
+const path = __WEBPACK_IMPORTED_MODULE_0_d3__["d" /* geoPath */]()
              .projection(projection);
 
-let color = __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* scaleThreshold */]()
+let color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
    .domain([0, 500, 5000, 10000, 50000, 100000])
-   .range(["#efefef", "#f7bbcb", "#fc99b4", "#ff668f", "#fc2d64"]);
+   .range(["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"]);
+
+const tooltip = __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#map')
+                  .append('div')
+                  .attr('class', 'tooltip');
+
+tooltip.append('div')
+       .attr('class', 'label');
+
+tooltip.append('div')
+       .attr('class', 'deaths');
+
 
 function ready(error, countries, disease) {
   if (error) throw error;
@@ -9048,6 +9059,8 @@ function ready(error, countries, disease) {
     diseaseByCountry[d.Country] = death;
   });
 
+  svg.select('g').remove();
+
   svg.append('g')
      .selectAll('.country')
      .data(countries.features)
@@ -9055,20 +9068,34 @@ function ready(error, countries, disease) {
      .append('path')
      .attr('class', 'country')
      .attr('fill', '#efefef')
-     .attr('stroke', 'white')
+     .attr('stroke', '#C0D3D9')
      .attr('d', path)
      .style('fill', function(d) {
        return color(diseaseByCountry[d.properties.name]);
     })
      .on('mouseover', function(d, i) {
-       __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */](this)
-        //  .transition().duration(300).style('opacity', 1)
+       const country = d.properties.name;
+       let deaths = diseaseByCountry[d.properties.name];
+       if (deaths === -1 || deaths === undefined ) {
+         deaths = 'No data available';
+       }
+       __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
+         .transition().duration(300)
          .style('fill', 'yellow');
+       tooltip.select('.label').html(country);
+       tooltip.select('.deaths').html(deaths);
+       tooltip.style('display', 'block');
     })
-     .on('mouseleave', function(d, i) {
-       __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */](this)
+     .on('mouseout', function(d, i) {
+       __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
+         .transition().duration(200)
          .style('fill', color(diseaseByCountry[d.properties.name]));
+      tooltip.style('display', 'none');
     })
+     .on('mousemove', function(d, i) {
+       tooltip.style('top', (__WEBPACK_IMPORTED_MODULE_0_d3__["b" /* event */].layerY + 10) + 'px')
+              .style('left', (__WEBPACK_IMPORTED_MODULE_0_d3__["b" /* event */].layerX + 10) + 'px');
+     })
      .on('click', function(d, i) {
        if (diseaseByCountry[d.properties.name] === -1) {
          alert(`No reported data for ${d.properties.name}`);
@@ -9076,28 +9103,26 @@ function ready(error, countries, disease) {
          alert(`${d.properties.name} had ${diseaseByCountry[d.properties.name]} deaths`);
       }
     });
-
-  svg.exit().remove();
 }
 
 function update(dataSet) {
-  __WEBPACK_IMPORTED_MODULE_0_d3__["e" /* queue */]()
-  .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["d" /* json */], '../data/countries.geo.json')
+  __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
+  .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["e" /* json */], '../data/countries.geo.json')
   .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${dataSet}`)
   .await(ready);
 }
 
-update('../data/malaria_2015_data.csv');
+update('../data/aids_2000_data.csv');
 
 function selectColor(disease) {
   if (disease === 'malaria') {
-    color = __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* scaleThreshold */]()
-    .domain([0, 500, 5000, 10000, 50000, 100000])
-    .range(["#efefef", "#5F8FC5", "#3B73B1", "#1C5EA6", "#0B478A"]);
+    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
+    .domain([0, 100, 5000, 10000, 30000, 100000])
+    .range(["#edeced", "#7070B7", "#4A4A9C", "#1F1F70", "#0C0C54"]);
   } else {
-    color = __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* scaleThreshold */]()
+    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
     .domain([0, 500, 5000, 10000, 50000, 100000])
-    .range(["#efefef", "#f7bbcb", "#fc99b4", "#ff668f", "#fc2d64"]);
+    .range(["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"]);
   }
 }
 
@@ -9110,13 +9135,13 @@ function mapSetup() {
   update(filepath);
 }
 
-let years = ['2016', '2015', '2010', '2005', '2000'];
+let years = ['2000', '2005', '2010', '2015', '2016'];
 
-__WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#timeslider').on('input', function() {
+__WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#timeslider').on('input', function() {
   mapSetup();
 });
 
-__WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#diseasedrop').on('change', function() {
+__WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#diseasedrop').on('change', function() {
   mapSetup();
 });
 
@@ -9153,8 +9178,8 @@ __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#diseasedrop').on('change', 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_d3_format__ = __webpack_require__(69);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_d3_geo__ = __webpack_require__(320);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_13_d3_geo__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_13_d3_geo__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_13_d3_geo__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_13_d3_geo__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_d3_hierarchy__ = __webpack_require__(348);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_d3_interpolate__ = __webpack_require__(5);
@@ -9166,16 +9191,17 @@ __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* select */]('#diseasedrop').on('change', 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_d3_quadtree__ = __webpack_require__(67);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_d3_queue__ = __webpack_require__(377);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_19_d3_queue__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_19_d3_queue__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_d3_random__ = __webpack_require__(380);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_d3_request__ = __webpack_require__(385);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_21_d3_request__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_21_d3_request__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_21_d3_request__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_d3_scale__ = __webpack_require__(392);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_22_d3_scale__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_22_d3_scale__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_d3_selection__ = __webpack_require__(1);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_23_d3_selection__["f"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_23_d3_selection__["b"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_23_d3_selection__["f"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_d3_shape__ = __webpack_require__(425);
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_d3_time__ = __webpack_require__(42);
