@@ -9032,18 +9032,19 @@ const projection = __WEBPACK_IMPORTED_MODULE_0_d3__["c" /* geoMercator */]()
 const path = __WEBPACK_IMPORTED_MODULE_0_d3__["d" /* geoPath */]()
              .projection(projection);
 
-const redColor = ["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"];
-const redDomain = [0, 500, 5000, 10000, 50000, 100000];
-const blueColor = ["#edeced", "#7070B7", "#4A4A9C", "#1F1F70", "#0C0C54"];
-const blueDomain = [0, 100, 5000, 10000, 30000, 100000];
+const redDeathColor = ["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"];
+const redDeathDomain = [0, 500, 5000, 10000, 50000, 100000];
+const blueDeathColor = ["#edeced", "#7070B7", "#4A4A9C", "#1F1F70", "#0C0C54"];
+const blueDeathDomain = [0, 100, 5000, 10000, 30000, 100000];
 
 let color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-   .domain(redDomain)
-   .range(redColor);
+              .domain(redDeathDomain)
+              .range(redDeathColor);
 
 const tooltip = __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#map')
                   .append('div')
                   .attr('class', 'tooltip');
+
 tooltip.append('div')
        .attr('class', 'label');
 tooltip.append('div')
@@ -9077,41 +9078,11 @@ function ready(error, countries, disease) {
      .style('opacity', 1)
      .style('fill', function(d) {
        return color(diseaseByCountry[d.properties.name]);
-    });
+     });
 
-    svg.selectAll('path')
-     .on('mouseover', function(d, i) {
-       const country = d.properties.name;
-       let deaths = diseaseByCountry[d.properties.name];
-       if (deaths === -1 || deaths === undefined ) {
-         deaths = 'No data available';
-       }
-       __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
-         .transition().duration(300)
-         .style('fill', 'yellow');
-       tooltip.select('.label').html(country);
-       tooltip.select('.deaths').html(deaths);
-       tooltip.style('display', 'block');
-    })
-     .on('mouseout', function(d, i) {
-       __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
-         .transition().duration(200)
-         .style('fill', color(diseaseByCountry[d.properties.name]));
-      tooltip.style('display', 'none');
-    })
-     .on('mousemove', function(d, i) {
-       tooltip.style('top', (__WEBPACK_IMPORTED_MODULE_0_d3__["b" /* event */].layerY + 10) + 'px')
-              .style('left', (__WEBPACK_IMPORTED_MODULE_0_d3__["b" /* event */].layerX + 10) + 'px');
-     })
-     .on('click', function(d, i) {
-       if (diseaseByCountry[d.properties.name] === -1) {
-         alert(`No reported data for ${d.properties.name}`);
-      } else {
-         alert(`${d.properties.name} had ${diseaseByCountry[d.properties.name]} deaths`);
-      }
-    });
+  mouseActions(diseaseByCountry);
 
-    // svg.exit().remove();
+  svg.exit().remove();
 }
 
 // Function to render the map for the very first time
@@ -9125,12 +9096,12 @@ function firstMap(dataSet) {
 // Making the legend
 let legend = svg.selectAll('g.legend')
                 .data(color.range().map(function(legendColor) {
-                  console.log('color range', color.range());
+                  // console.log('color range', color.range());
                   let d = color.invertExtent(legendColor);
-                  console.log('before d', d);
+                  // console.log('before d', d);
                   if (!d[0] && d[0] !== 0) d[0] = -1;
                   if (!d[1] && d[1] !== 0) d[1] = 100000;
-                  console.log('after d', d);
+                  // console.log('after d', d);
                   return d;
                 }))
                 .enter().append('g')
@@ -9138,50 +9109,39 @@ let legend = svg.selectAll('g.legend')
 
 const lsW = 20;
 const lsH = 20;
-const legendLabels = ["< 500", "500 - 5000", "5000 - 10000", "10000 - 50000", "> 50000"];
+const legendLabels = ["No data", "500 - 5000", "5000 - 10000", "10000 - 50000", "> 50000"];
 
 function legendSetup(disease) {
   legend.select('rect').remove();
 
   legend.append('rect')
-  .attr('x', 20)
-  .attr('y', function(d, i) {
-    return height - (i * lsH) - 2*lsH;
-  })
-  .attr('width', lsW)
-  .attr('height', lsH)
-  .style('fill', function(d, i) {
-    console.log(d);
-    return color(d[0]);
-  })
-  .style('opacity', 0.8);
+        .attr('x', 20)
+        .attr('y', function(d, i) {
+           return height - (i * lsH) - 2*lsH;
+        })
+        .attr('width', lsW)
+        .attr('height', lsH)
+        .style('fill', function(d, i) {
+
+    // console.log(d);
+          return color(d[0]);
+        })
+        .style('opacity', 0.8);
 
   legend.append('text')
-  .attr('x', 50)
-  .attr('y', function(d, i) {
-    return height - i * lsH - lsH - 4;
-  })
-  .text(function(d, i) {
-    console.log('inside text', d);
-    return legendLabels[i];
-  });
+        .attr('x', 50)
+        .attr('y', function(d, i) {
+          return height - i * lsH - lsH - 4;
+        })
+        .text(function(d, i) {
+          console.log('inside text', d);
+          return legendLabels[i];
+        });
 }
 
 // Making the map and legend appear first!
 firstMap('../data/aids_2000_data.csv');
-legendSetup('malaria');
-
-function selectColor(disease) {
-  if (disease === 'malaria') {
-    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-    .domain(blueDomain)
-    .range(blueColor);
-  } else {
-    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-    .domain(redDomain)
-    .range(redColor);
-  }
-}
+legendSetup('aids');
 
 function mapSetup() {
   const disease = document.getElementById('diseasedrop').value;
@@ -9193,6 +9153,25 @@ function mapSetup() {
   update(filepath);
 }
 
+function selectColor(disease) {
+  if (disease === 'malaria') {
+    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
+    .domain(blueDeathDomain)
+    .range(blueDeathColor);
+  } else {
+    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
+    .domain(redDeathDomain)
+    .range(redDeathColor);
+  }
+}
+
+function update(filepath) {
+  __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
+  .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${filepath}`)
+  .await(updateMap);
+}
+
+
 let years = ['2000', '2005', '2010', '2015', '2016'];
 
 __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#timeslider').on('input', function() {
@@ -9203,11 +9182,6 @@ __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#diseasedrop').on('change', 
   mapSetup();
 });
 
-function update(filepath) {
-  __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
-    .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${filepath}`)
-    .await(updateMap);
-}
 
 function updateMap(error, disease) {
   console.log(disease);
@@ -9220,12 +9194,43 @@ function updateMap(error, disease) {
     diseaseByCountry[d.Country] = death;
   });
 
+  console.log(diseaseByCountry);
   svg.selectAll('path')
-  .transition().duration(300)
-  .style('opacity', 1)
-  .style('fill', function(d) {
-    return color(diseaseByCountry[d.properties.name]);
+     .transition().duration(300)
+     .style('opacity', 1)
+     .style('fill', function(d) {
+      console.log(d.properties.name);
+      return color(diseaseByCountry[d.properties.name]);
  });
+
+  mouseActions(diseaseByCountry);
+}
+
+function mouseActions(diseaseByCountry) {
+  svg.selectAll('path')
+     .on('mouseover', function(d, i) {
+       const country = d.properties.name;
+       let deaths = diseaseByCountry[d.properties.name];
+       if (deaths === -1 || deaths === undefined ) {
+         deaths = 'No data available';
+     }
+       __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
+         .transition().duration(300)
+         .style('fill', 'yellow');
+       tooltip.select('.label').html(country);
+       tooltip.select('.deaths').html(deaths);
+       tooltip.style('display', 'block');
+  })
+    .on('mouseout', function(d, i) {
+      __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
+        .transition().duration(200)
+        .style('fill', color(diseaseByCountry[d.properties.name]));
+      tooltip.style('display', 'none');
+  })
+    .on('mousemove', function(d, i) {
+      tooltip.style('top', (__WEBPACK_IMPORTED_MODULE_0_d3__["b" /* event */].layerY + 10) + 'px')
+             .style('left', (__WEBPACK_IMPORTED_MODULE_0_d3__["b" /* event */].layerX + 10) + 'px');
+   });
 }
 
 
