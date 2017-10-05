@@ -9036,6 +9036,8 @@ const redDeathColor = ["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"];
 const redDeathDomain = [0, 500, 5000, 10000, 50000, 100000];
 const blueDeathColor = ["#edeced", "#7070B7", "#4A4A9C", "#1F1F70", "#0C0C54"];
 const blueDeathDomain = [0, 100, 5000, 10000, 30000, 100000];
+const greenFrequencyColor = ["#edeced", "#009900", "#007f00", "#006600", "#004c00"];
+const greenFrequencyDomain = [0, 0.05, 1, 1.5, 2, 10];
 
 let color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
               .domain(redDeathDomain)
@@ -9050,9 +9052,17 @@ tooltip.append('div')
 tooltip.append('div')
        .attr('class', 'deaths');
 
+// Function to render the map for the very first time
+function firstMap(dataSet) {
+ __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
+   .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["e" /* json */], '../data/countries.geo.json')
+   .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${dataSet}`)
+   .await(ready);
+}
 
 function ready(error, countries, disease) {
   if (error) throw error;
+
   let diseaseByCountry = {};
 
   disease.forEach(function(d) {
@@ -9085,13 +9095,7 @@ function ready(error, countries, disease) {
   svg.exit().remove();
 }
 
-// Function to render the map for the very first time
-function firstMap(dataSet) {
-  __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
-  .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["e" /* json */], '../data/countries.geo.json')
-  .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${dataSet}`)
-  .await(ready);
-}
+
 
 const lsW = 20;
 const lsH = 20;
@@ -9155,19 +9159,28 @@ __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#diseasedrop').on('change', 
   mapSetup();
 });
 
-__WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('statdrop').on('change', function() {
+__WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#statdrop').on('change', function() {
   mapSetup();
 });
 
 function mapSetup() {
+  let statFilepath;
   const disease = document.getElementById('diseasedrop').value;
   selectColor(disease);
   legendSetup(disease);
   const year = years[document.getElementById('timeslider').value];
-  const deathFilepath = `../data/${disease}_${year}_data.csv`;
   const stat = document.getElementById('statdrop').value;
+
+  const deathFilepath = `../data/${disease}_${year}_data.csv`;
   document.getElementById('year').innerHTML = year;
-  update(deathFilepath);
+
+  if (stat !== 'deaths') {
+    statFilepath = `../data/${stat}.csv`;
+    updateWithStats(deathFilepath, statFilepath);
+  } else {
+    update(deathFilepath);
+  }
+
 }
 
 function selectColor(disease) {
@@ -9187,6 +9200,66 @@ function update(deathFilepath) {
   .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${deathFilepath}`)
   .await(updateMap);
 }
+
+function updateWithStats(deathFilepath, statFilepath) {
+  console.log(deathFilepath);
+  console.log(statFilepath);
+  const year = years[document.getElementById('timeslider').value];
+  console.log('year', year);
+  __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
+    .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${deathFilepath}`)
+    .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${statFilepath}`, function(d) {
+      if (d.Year === year) return d;
+    })
+    .await(updateMapWithData);
+}
+
+function updateMapWithData(error, disease, stats) {
+  console.log(disease);
+  console.log(stats);
+
+  color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
+            .domain(greenFrequencyDomain)
+            .range(greenFrequencyColor);
+
+  let diseaseByCountry = {};
+
+  disease.forEach(function(d) {
+    let death = Number(d.deaths);
+    if (isNaN(death)) {
+      death = -1;
+    }
+    diseaseByCountry[d.Country] = death;
+  });
+
+  console.log(diseaseByCountry);
+
+  let statsByCountry = {};
+
+  stats.forEach(function(s) {
+    let stat = Number(s.Value);
+    // console.log(stat);
+    if (isNaN(stat)) {
+      stat = -1;
+    }
+    statsByCountry[s.Country] = stat;
+  });
+
+  console.log(statsByCountry);
+
+  svg.selectAll('path')
+     .transition().duration(300)
+     .style('opacity', 1)
+     .style('fill', function(d) {
+       console.log('country', d.properties.name);
+       console.log('country', diseaseByCountry[d.properties.name]);
+       console.log('stats', statsByCountry[d.properties.name]);
+       return color(diseaseByCountry[d.properties.name] / statsByCountry[d.properties.name] * 10000);
+     });
+}
+
+
+
 
 function updateMap(error, disease) {
   let diseaseByCountry = {};
