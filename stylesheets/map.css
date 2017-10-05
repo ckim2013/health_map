@@ -1,13 +1,22 @@
-html {
+body, html {
   background: #C0D3D9;
   font-family: 'Questrial', sans-serif;
-  color: #404040
+  color: #404040;
+  letter-spacing: 2px;
+}
+
+.site-container {
+  /*display: flex;*/
+}
+
+.allDropdownsContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
   text-align: center;
   font-weight: bold;
-  letter-spacing: 2px;
 }
 
 path {
@@ -19,6 +28,11 @@ path {
   position: relative;
   display: flex;
   justify-content: center;
+}
+
+select {
+  font-size: 20px;
+  width: 150px;
 }
 
 #yearSliderContainer {
@@ -35,7 +49,7 @@ span {
 #timeslider {
   -webkit-appearance: none;
   width: 60%;
-  height: 20px;
+  height: 7px;
   background: #404040;
   opacity: 1;
   -webkit-transition: .2s;
@@ -65,11 +79,6 @@ span {
   top: 100px;
   width: 100px;
   z-index: 10;
-}
-
-#diseaseDropdownContainer {
-  display: flex;
-  justify-content: center;
 }
 
 .modal {

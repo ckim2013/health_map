@@ -9018,7 +9018,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 const width = 1000;
 const height = 700;
-
 const svg = __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#map')
               .append('svg')
               .attr('width', width)
@@ -9057,7 +9056,7 @@ const tooltip = __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#map')
 tooltip.append('div')
        .attr('class', 'label');
 tooltip.append('div')
-       .attr('class', 'deaths');
+       .attr('class', 'values');
 
 firstMap('data/aids_2000_data.csv');
 legendSetup('aids');
@@ -9240,7 +9239,7 @@ function updateMapWithData(error, disease, stats) {
        return color(diseaseByCountry[d.properties.name] / statsByCountry[d.properties.name] * 10000);
      });
 
-  mouseActions(diseaseByCountry);
+  mouseActions(diseaseByCountry, statsByCountry);
 }
 
 function updateMap(error, disease) {
@@ -9256,25 +9255,33 @@ function updateMap(error, disease) {
   mouseActions(diseaseByCountry);
 }
 
-function mouseActions(diseaseByCountry) {
+function mouseActions(diseaseByCountry, statsByCountry) {
+  let objectForDetails = statsByCountry ? statsByCountry : diseaseByCountry;
+  console.log(objectForDetails);
   svg.selectAll('path')
      .on('mouseover', function(d, i) {
        const country = d.properties.name;
-       let deaths = diseaseByCountry[d.properties.name];
-       if (deaths === -1 || deaths === undefined ) {
-         deaths = 'No data available';
+       let values = objectForDetails[d.properties.name];
+       if (values === -1 || values === undefined ) {
+         values = 'No data available';
      }
        __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
          .transition().duration(300)
          .style('fill', 'yellow');
        tooltip.select('.label').html(country);
-       tooltip.select('.deaths').html(deaths);
+       tooltip.select('.values').html(values);
        tooltip.style('display', 'block');
   })
     .on('mouseout', function(d, i) {
       __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
         .transition().duration(200)
-        .style('fill', color(diseaseByCountry[d.properties.name]));
+        .style('fill', function(d, i) {
+          if (statsByCountry) {
+            return color(diseaseByCountry[d.properties.name] / statsByCountry[d.properties.name] * 10000)
+          } else {
+            return color(objectForDetails[d.properties.name]);
+          }
+        });
       tooltip.style('display', 'none');
   })
     .on('mousemove', function(d, i) {
