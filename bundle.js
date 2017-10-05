@@ -9034,8 +9034,11 @@ const path = __WEBPACK_IMPORTED_MODULE_0_d3__["d" /* geoPath */]()
 
 const lsW = 20;
 const lsH = 20;
-const redDeathLegendLabels = ["No data", "500 - 5000", "5000 - 10000", "10000 - 50000", "> 50000"];
-const blueDeathLegendLabels = ["No data", "100 - 5000", "5000 - 10000", "10000 - 30000", "> 30000"];
+
+const redDeathLegendLabels = ["No data", "0 - 5000", "5000 - 10000", "10000 - 50000", "> 50000"];
+const blueDeathLegendLabels = ["No data", "0 - 5000", "5000 - 10000", "10000 - 30000", "> 30000"];
+const greenFrequencyLegendLabels = ["No data", "test1", "test2", "test3", "test4"];
+
 const redDeathColor = ["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"];
 const redDeathDomain = [0, 500, 5000, 10000, 50000, 100000];
 const blueDeathColor = ["#edeced", "#7070B7", "#4A4A9C", "#1F1F70", "#0C0C54"];
@@ -9056,8 +9059,8 @@ tooltip.append('div')
 tooltip.append('div')
        .attr('class', 'deaths');
 
-       firstMap('../data/aids_2000_data.csv');
-       legendSetup('aids');
+firstMap('../data/aids_2000_data.csv');
+legendSetup('aids');
 
 // Function to render the map for the very first time
 function firstMap(dataSet) {
@@ -9110,7 +9113,8 @@ function legendSetup(disease) {
   svg.selectAll('g.legend').remove();
 
   let ultimateLegendLabels;
-
+  let stat = document.getElementById('statdrop').value;
+  console.log(stat);
   let legend = svg.selectAll('g.legend')
                   .data(color.range().map(function(legendColor) {
                     let d = color.invertExtent(legendColor);
@@ -9121,10 +9125,12 @@ function legendSetup(disease) {
                   .enter().append('g')
                   .attr('class', 'legend');
 
-  if (disease === 'aids') {
+  if (disease === 'aids' && stat === 'deaths') {
     ultimateLegendLabels = redDeathLegendLabels;
-  } else {
+  } else if (disease === 'malaria' && stat === 'deaths') {
     ultimateLegendLabels = blueDeathLegendLabels;
+  } else if (stat === 'population') {
+    ultimateLegendLabels = greenFrequencyLegendLabels;
   }
 
   legend.append('rect')
@@ -9166,10 +9172,10 @@ __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#statdrop').on('change', fun
 function mapSetup() {
   let statFilepath;
   const disease = document.getElementById('diseasedrop').value;
-  selectColor(disease);
+  const stat = document.getElementById('statdrop').value;
+  selectColor(disease, stat);
   legendSetup(disease);
   const year = years[document.getElementById('timeslider').value];
-  const stat = document.getElementById('statdrop').value;
 
   const deathFilepath = `../data/${disease}_${year}_data.csv`;
   document.getElementById('year').innerHTML = year;
@@ -9183,15 +9189,19 @@ function mapSetup() {
 
 }
 
-function selectColor(disease) {
-  if (disease === 'malaria') {
+function selectColor(disease, stat) {
+  if (stat === 'population') {
     color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-    .domain(blueDeathDomain)
-    .range(blueDeathColor);
-  } else {
+              .domain(greenFrequencyDomain)
+              .range(greenFrequencyColor);
+  } else if (disease === 'malaria') {
     color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-    .domain(redDeathDomain)
-    .range(redDeathColor);
+              .domain(blueDeathDomain)
+              .range(blueDeathColor);
+  } else if (disease === 'aids'){
+    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
+              .domain(redDeathDomain)
+              .range(redDeathColor);
   }
 }
 
@@ -9229,6 +9239,8 @@ function updateMapWithData(error, disease, stats) {
      .style('fill', function(d) {
        return color(diseaseByCountry[d.properties.name] / statsByCountry[d.properties.name] * 10000);
      });
+
+  mouseActions(diseaseByCountry);
 }
 
 function updateMap(error, disease) {
