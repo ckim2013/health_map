@@ -9065,7 +9065,7 @@ legendSetup('aids');
 // Function to render the map for the very first time
 function firstMap(dataSet) {
  __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
-   .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["e" /* json */], '../data/countries.geo.json')
+   .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["e" /* json */], 'data/countries.geo.json')
    .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${dataSet}`)
    .await(ready);
 }
