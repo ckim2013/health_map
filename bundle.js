@@ -9059,7 +9059,7 @@ tooltip.append('div')
 tooltip.append('div')
        .attr('class', 'deaths');
 
-firstMap('../data/aids_2000_data.csv');
+firstMap('data/aids_2000_data.csv');
 legendSetup('aids');
 
 // Function to render the map for the very first time
@@ -9177,11 +9177,11 @@ function mapSetup() {
   legendSetup(disease);
   const year = years[document.getElementById('timeslider').value];
 
-  const deathFilepath = `../data/${disease}_${year}_data.csv`;
+  const deathFilepath = `data/${disease}_${year}_data.csv`;
   document.getElementById('year').innerHTML = year;
 
   if (stat !== 'deaths') {
-    statFilepath = `../data/${stat}.csv`;
+    statFilepath = `data/${stat}.csv`;
     updateWithStats(deathFilepath, statFilepath);
   } else {
     update(deathFilepath);
