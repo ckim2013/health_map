@@ -1,4 +1,4 @@
-Country,Country Code,Year,Value
+Country,Country Code,Year,values
 Afghanistan,AFG,2000,19701940
 Afghanistan,AFG,2005,24399948
 Afghanistan,AFG,2015,32526562
@@ -122,18 +122,18 @@ Colombia,COL,2015,48228704
 Comoros,COM,2000,547696
 Comoros,COM,2005,618632
 Comoros,COM,2015,788474
-"Congo, Dem. Rep.",COD,2000,48048664
-"Congo, Dem. Rep.",COD,2005,56089536
-"Congo, Dem. Rep.",COD,2015,77266814
-"Congo, Rep.",COG,2000,3109269
-"Congo, Rep.",COG,2005,3503086
-"Congo, Rep.",COG,2015,4620330
+"Democratic Republic of the Congo",COD,2000,48048664
+"Democratic Republic of the Congo",COD,2005,56089536
+"Democratic Republic of the Congo",COD,2015,77266814
+"Republic of the Congo",COG,2000,3109269
+"Republic of the Congo",COG,2005,3503086
+"Republic of the Congo",COG,2015,4620330
 Costa Rica,CRI,2000,3925450
 Costa Rica,CRI,2005,4247843
 Costa Rica,CRI,2015,4807850
-Cote d'Ivoire,CIV,2000,16517948
-Cote d'Ivoire,CIV,2005,18132702
-Cote d'Ivoire,CIV,2015,22701556
+Ivory Coast,CIV,2000,16517948
+Ivory Coast,CIV,2005,18132702
+Ivory Coast,CIV,2015,22701556
 Croatia,HRV,2000,4426000
 Croatia,HRV,2005,4442000
 Croatia,HRV,2015,4203604

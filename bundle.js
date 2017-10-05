@@ -9032,6 +9032,10 @@ const projection = __WEBPACK_IMPORTED_MODULE_0_d3__["c" /* geoMercator */]()
 const path = __WEBPACK_IMPORTED_MODULE_0_d3__["d" /* geoPath */]()
              .projection(projection);
 
+const lsW = 20;
+const lsH = 20;
+const redDeathLegendLabels = ["No data", "500 - 5000", "5000 - 10000", "10000 - 50000", "> 50000"];
+const blueDeathLegendLabels = ["No data", "100 - 5000", "5000 - 10000", "10000 - 30000", "> 30000"];
 const redDeathColor = ["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"];
 const redDeathDomain = [0, 500, 5000, 10000, 50000, 100000];
 const blueDeathColor = ["#edeced", "#7070B7", "#4A4A9C", "#1F1F70", "#0C0C54"];
@@ -9052,6 +9056,9 @@ tooltip.append('div')
 tooltip.append('div')
        .attr('class', 'deaths');
 
+       firstMap('../data/aids_2000_data.csv');
+       legendSetup('aids');
+
 // Function to render the map for the very first time
 function firstMap(dataSet) {
  __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
@@ -9060,18 +9067,22 @@ function firstMap(dataSet) {
    .await(ready);
 }
 
+function makeObject(entity) {
+  let entityByCountry = {};
+  entity.forEach(function(d) {
+    let item = Number(d.values);
+    if (isNaN(item)) {
+      item = -1;
+    }
+    entityByCountry[d.Country] = item;
+  });
+  return entityByCountry;
+}
+
 function ready(error, countries, disease) {
   if (error) throw error;
 
-  let diseaseByCountry = {};
-
-  disease.forEach(function(d) {
-    let death = Number(d.deaths);
-    if (isNaN(death)) {
-      death = -1;
-    }
-    diseaseByCountry[d.Country] = death;
-  });
+  let diseaseByCountry = makeObject(disease);
 
   // svg.select('g').remove();
 
@@ -9094,13 +9105,6 @@ function ready(error, countries, disease) {
 
   svg.exit().remove();
 }
-
-
-
-const lsW = 20;
-const lsH = 20;
-const redDeathLegendLabels = ["No data", "500 - 5000", "5000 - 10000", "10000 - 50000", "> 50000"];
-const blueDeathLegendLabels = ["No data", "100 - 5000", "5000 - 10000", "10000 - 30000", "> 30000"];
 
 function legendSetup(disease) {
   svg.selectAll('g.legend').remove();
@@ -9144,10 +9148,6 @@ function legendSetup(disease) {
           return ultimateLegendLabels[i];
         });
 }
-
-// Making the map and legend appear first!
-firstMap('../data/aids_2000_data.csv');
-legendSetup('aids');
 
 let years = ['2000', '2005', '2010', '2015', '2016'];
 
@@ -9215,61 +9215,24 @@ function updateWithStats(deathFilepath, statFilepath) {
 }
 
 function updateMapWithData(error, disease, stats) {
-  console.log(disease);
-  console.log(stats);
-
   color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
             .domain(greenFrequencyDomain)
             .range(greenFrequencyColor);
 
-  let diseaseByCountry = {};
+  let diseaseByCountry = makeObject(disease);
 
-  disease.forEach(function(d) {
-    let death = Number(d.deaths);
-    if (isNaN(death)) {
-      death = -1;
-    }
-    diseaseByCountry[d.Country] = death;
-  });
-
-  console.log(diseaseByCountry);
-
-  let statsByCountry = {};
-
-  stats.forEach(function(s) {
-    let stat = Number(s.Value);
-    // console.log(stat);
-    if (isNaN(stat)) {
-      stat = -1;
-    }
-    statsByCountry[s.Country] = stat;
-  });
-
-  console.log(statsByCountry);
+  let statsByCountry = makeObject(stats);
 
   svg.selectAll('path')
      .transition().duration(300)
      .style('opacity', 1)
      .style('fill', function(d) {
-       console.log('country', d.properties.name);
-       console.log('country', diseaseByCountry[d.properties.name]);
-       console.log('stats', statsByCountry[d.properties.name]);
        return color(diseaseByCountry[d.properties.name] / statsByCountry[d.properties.name] * 10000);
      });
 }
 
-
-
-
 function updateMap(error, disease) {
-  let diseaseByCountry = {};
-  disease.forEach(function(d) {
-    let death = Number(d.deaths);
-    if (isNaN(death)) {
-      death = -1;
-    }
-    diseaseByCountry[d.Country] = death;
-  });
+  let diseaseByCountry = makeObject(disease);
 
   svg.selectAll('path')
      .transition().duration(300)
