@@ -9279,8 +9279,7 @@ function mouseActions(objectByCountry, statsByCountry) {
        if (statsByCountry) {
          values = objectByCountry[country] / statsByCountry[country] * 10000;
        }
-
-       if (values === NaN || values === undefined || values < 0) {
+       if (isNaN(values) || values === undefined || values < 0) {
          values = 'No data available';
      }
        __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
