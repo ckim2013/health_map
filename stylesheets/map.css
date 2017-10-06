@@ -11,12 +11,6 @@ body, html {
   width: 1500px;
 }
 
-.site-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 h1 {
   text-align: center;
   font-weight: bold;
@@ -61,8 +55,12 @@ span {
   opacity: 0.5;
 }
 
-#timeslider::-moz-range-thumb {
-  background-color: green;
+#timeslider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 50px;
+  background-color: blue;
 }
 
 path {

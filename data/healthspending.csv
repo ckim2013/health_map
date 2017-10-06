@@ -58,9 +58,9 @@ Benin,2000,47.4
 Bhutan,2010,227.8
 Bhutan,2005,153.3
 Bhutan,2000,165.6
-Bolivia (Plurinational State of),2010,257.8
-Bolivia (Plurinational State of),2005,205.8
-Bolivia (Plurinational State of),2000,188.0
+Bolivia,2010,257.8
+Bolivia,2005,205.8
+Bolivia,2000,188.0
 Bosnia and Herzegovina,2010,833.7
 Bosnia and Herzegovina,2005,538.3
 Bosnia and Herzegovina,2000,313.6
@@ -418,9 +418,9 @@ Moldova,2000,97.7
 Romania,2010,880.9
 Romania,2005,514.1
 Romania,2000,247.8
-Russian Federation,2010,1297.3
-Russian Federation,2005,614.4
-Russian Federation,2000,369.3
+Russia,2010,1297.3
+Russia,2005,614.4
+Russia,2000,369.3
 Rwanda,2010,126.5
 Rwanda,2005,49.9
 Rwanda,2000,23.6
@@ -542,9 +542,9 @@ United Arab Emirates,2000,865.4
 United Kingdom,2010,3384.0
 United Kingdom,2005,2733.0
 United Kingdom,2000,1830.5
-United Republic of Tanzania,2010,99.9
-United Republic of Tanzania,2005,41.8
-United Republic of Tanzania,2000,25.3
+Tanzania,2010,99.9
+Tanzania,2005,41.8
+Tanzania,2000,25.3
 United States,2010,8254.2
 United States,2005,6732.2
 United States,2000,4790.0

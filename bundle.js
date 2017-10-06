@@ -9036,14 +9036,18 @@ const lsH = 20;
 
 const redDeathLegendLabels = ["No data", "0 - 5000", "5000 - 10000", "10000 - 50000", "> 50000"];
 const blueDeathLegendLabels = ["No data", "0 - 5000", "5000 - 10000", "10000 - 30000", "> 30000"];
-const greenFrequencyLegendLabels = ["No data", "test1", "test2", "test3", "test4"];
+const orangeFrequencyLegendLabels = ["No data", "test1", "test2", "test3", "test4"];
+const greenMoneyLegendLabels = ["No data", "test5", "test6", "test7", "test8"];
 
 const redDeathColor = ["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"];
 const redDeathDomain = [0, 500, 5000, 10000, 50000, 100000];
 const blueDeathColor = ["#edeced", "#7070B7", "#4A4A9C", "#1F1F70", "#0C0C54"];
 const blueDeathDomain = [0, 100, 5000, 10000, 30000, 100000];
-const greenFrequencyColor = ["#edeced", "#009900", "#007f00", "#006600", "#004c00"];
-const greenFrequencyDomain = [0, 0.05, 1, 1.5, 2, 10];
+const orangeFrequencyColor = ["#edeced", "#ffc04d", "#ffae1a", "#e69500", "#b37400"];
+const orangeFrequencyDomain = [0, 0.05, 1, 1.5, 2, 10];
+
+const greenMoneyColor = ["#edeced", "#009900", "#007f00", "#006600", "#004c00"];
+const greenMoneyDomain = [0, 100, 500, 1000, 5000, 8000];
 
 let color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
               .domain(redDeathDomain)
@@ -9114,7 +9118,6 @@ function legendSetup(disease) {
 
   let ultimateLegendLabels;
   let stat = document.getElementById('statdrop').value;
-  console.log(stat);
   let legend = svg.selectAll('g.legend')
                   .data(color.range().map(function(legendColor) {
                     let d = color.invertExtent(legendColor);
@@ -9130,7 +9133,9 @@ function legendSetup(disease) {
   } else if (disease === 'malaria' && stat === 'deaths') {
     ultimateLegendLabels = blueDeathLegendLabels;
   } else if (stat === 'population') {
-    ultimateLegendLabels = greenFrequencyLegendLabels;
+    ultimateLegendLabels = orangeFrequencyLegendLabels;
+  } else if (stat === 'healthspending') {
+    ultimateLegendLabels = greenMoneyLegendLabels;
   }
 
   legend.append('rect')
@@ -9180,20 +9185,25 @@ function mapSetup() {
   const deathFilepath = `data/${disease}_${year}_data.csv`;
   document.getElementById('year').innerHTML = year;
 
-  if (stat !== 'deaths') {
+  if (stat === 'population') {
     statFilepath = `data/${stat}.csv`;
-    updateWithStats(deathFilepath, statFilepath);
+    updateWithPopulation(deathFilepath, statFilepath);
+  } else if (stat === 'healthspending') {
+    updateWithMoney();
   } else {
     update(deathFilepath);
   }
-
 }
 
 function selectColor(disease, stat) {
   if (stat === 'population') {
     color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-              .domain(greenFrequencyDomain)
-              .range(greenFrequencyColor);
+              .domain(orangeFrequencyDomain)
+              .range(orangeFrequencyColor);
+  } else if (stat === 'healthspending') {
+    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
+              .domain(greenMoneyDomain)
+              .range(greenMoneyColor);
   } else if (disease === 'malaria') {
     color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
               .domain(blueDeathDomain)
@@ -9211,23 +9221,29 @@ function update(deathFilepath) {
   .await(updateMap);
 }
 
-function updateWithStats(deathFilepath, statFilepath) {
-  console.log(deathFilepath);
-  console.log(statFilepath);
+function updateWithMoney() {
   const year = years[document.getElementById('timeslider').value];
-  console.log('year', year);
+  __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
+    .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], 'data/healthspending.csv', function(d, i) {
+      if (d.Year === year) return d;
+    })
+    .await(updateMap);
+}
+
+function updateWithPopulation(deathFilepath, statFilepath) {
+  const year = years[document.getElementById('timeslider').value];
   __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
     .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${deathFilepath}`)
     .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["a" /* csv */], `${statFilepath}`, function(d) {
       if (d.Year === year) return d;
     })
-    .await(updateMapWithData);
+    .await(updateMapWithPopulation);
 }
 
-function updateMapWithData(error, disease, stats) {
+function updateMapWithPopulation(error, disease, stats) {
   color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-            .domain(greenFrequencyDomain)
-            .range(greenFrequencyColor);
+            .domain(orangeFrequencyDomain)
+            .range(orangeFrequencyColor);
 
   let diseaseByCountry = makeObject(disease);
 
@@ -9237,34 +9253,34 @@ function updateMapWithData(error, disease, stats) {
      .transition().duration(300)
      .style('opacity', 1)
      .style('fill', function(d) {
-       return color(diseaseByCountry[d.properties.name] / statsByCountry[d.properties.name] * 10000);
+       return color(diseaseByCountry[d.properties.name]/statsByCountry[d.properties.name] * 10000);
      });
 
   mouseActions(diseaseByCountry, statsByCountry);
 }
 
 function updateMap(error, disease) {
-  let diseaseByCountry = makeObject(disease);
-
+  let objectByCountry = makeObject(disease);
   svg.selectAll('path')
      .transition().duration(300)
      .style('opacity', 1)
      .style('fill', function(d) {
-       return color(diseaseByCountry[d.properties.name]);
+       return color(objectByCountry[d.properties.name]);
  });
-
-  mouseActions(diseaseByCountry);
+  mouseActions(objectByCountry);
 }
 
-function mouseActions(diseaseByCountry, statsByCountry) {
-  let objectForDetails = statsByCountry ? statsByCountry : diseaseByCountry;
-  console.log(objectForDetails);
+function mouseActions(objectByCountry, statsByCountry) {
+  // let objectByCountry = statsByCountry ? statsByCountry : objectByCountry;
   svg.selectAll('path')
      .on('mouseover', function(d, i) {
        const country = d.properties.name;
-       let values = objectForDetails[d.properties.name];
-       console.log(values);
-       if (values === -1 || values === undefined ) {
+       let values = objectByCountry[country];
+       if (statsByCountry) {
+         values = objectByCountry[country] / statsByCountry[country] * 10000;
+       }
+
+       if (values === NaN || values === undefined || values < 0) {
          values = 'No data available';
      }
        __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
@@ -9274,14 +9290,14 @@ function mouseActions(diseaseByCountry, statsByCountry) {
        tooltip.select('.values').html(values);
        tooltip.style('display', 'block');
   })
-    .on('mouseout', function(d, i) {
+    .on('mouseout', function() {
       __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */](this)
         .transition().duration(200)
-        .style('fill', function(d, i) {
+        .style('fill', function(d) {
           if (statsByCountry) {
-            return color(diseaseByCountry[d.properties.name] / statsByCountry[d.properties.name] * 10000)
+            return color(objectByCountry[d.properties.name]/statsByCountry[d.properties.name] * 10000);
           } else {
-            return color(objectForDetails[d.properties.name]);
+            return color(objectByCountry[d.properties.name]);
           }
         });
       tooltip.style('display', 'none');
