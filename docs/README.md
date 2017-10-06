@@ -1,7 +1,7 @@
 # World Health Map (AIDS and Malaria)
 
 ## Background and Overview
-Before I started programming, I was a biologist who researched diseases in hopes of one day, improving the lives of people around the world healthier.
+Before I started programming, I was a biologist who researched diseases in hopes of one day, improving the lives of people around the world.
 
 To pay tribute to my roots and to those affected by AIDS/Malaria, I want to implement a world map of some sort that displays the statistics of AIDS/Malaria (or another condition) around the world. This map would be a 2d (or 3d) rendition of the world where the user can navigate and see a certain statistic of a certain country.
 
