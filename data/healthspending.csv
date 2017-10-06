@@ -1,0 +1,571 @@
+Country,Year,values
+Afghanistan,2010,51.1
+Afghanistan,2005,20.0
+Albania,2010,481.9
+Albania,2005,366.8
+Albania,2000,247.6
+Algeria,2010,334.8
+Algeria,2005,219.5
+Algeria,2000,181.2
+Andorra,2010,3101.5
+Andorra,2005,2492.4
+Andorra,2000,1978.1
+Angola,2010,191.0
+Angola,2005,139.0
+Angola,2000,74.5
+Antigua and Barbuda,2010,1108.1
+Antigua and Barbuda,2005,827.2
+Antigua and Barbuda,2000,592.1
+Argentina,2010,1306.4
+Argentina,2005,903.2
+Argentina,2000,841.0
+Armenia,2010,258.9
+Armenia,2005,218.8
+Armenia,2000,127.3
+Australia,2010,3738.8
+Australia,2005,2958.3
+Australia,2000,2245.3
+Austria,2010,4711.2
+Austria,2005,3504.5
+Austria,2000,2897.5
+Azerbaijan,2010,525.2
+Azerbaijan,2005,346.5
+Azerbaijan,2000,102.3
+Bahamas,2010,2241.2
+Bahamas,2005,1802.7
+Bahamas,2000,1424.3
+Bahrain,2010,867.5
+Bahrain,2005,866.1
+Bahrain,2000,802.0
+Bangladesh,2010,60.0
+Bangladesh,2005,36.7
+Bangladesh,2000,23.7
+Barbados,2010,1482.1
+Barbados,2005,1047.7
+Barbados,2000,791.9
+Belarus,2010,770.8
+Belarus,2005,594.9
+Belarus,2000,316.6
+Belgium,2010,3994.1
+Belgium,2005,3223.6
+Belgium,2000,2248.0
+Belize,2010,432.9
+Belize,2005,298.6
+Belize,2000,207.6
+Benin,2010,64.8
+Benin,2005,60.6
+Benin,2000,47.4
+Bhutan,2010,227.8
+Bhutan,2005,153.3
+Bhutan,2000,165.6
+Bolivia (Plurinational State of),2010,257.8
+Bolivia (Plurinational State of),2005,205.8
+Bolivia (Plurinational State of),2000,188.0
+Bosnia and Herzegovina,2010,833.7
+Bosnia and Herzegovina,2005,538.3
+Bosnia and Herzegovina,2000,313.6
+Botswana,2010,815.0
+Botswana,2005,628.5
+Botswana,2000,401.2
+Brazil,2010,1007.7
+Brazil,2005,694.6
+Brazil,2000,502.5
+Brunei Darussalam,2010,1374.7
+Brunei Darussalam,2005,1237.4
+Brunei Darussalam,2000,1273.6
+Bulgaria,2010,1053.1
+Bulgaria,2005,718.7
+Bulgaria,2000,385.0
+Burkina Faso,2010,93.5
+Burkina Faso,2005,73.7
+Burkina Faso,2000,41.2
+Burundi,2010,46.7
+Burundi,2005,45.7
+Burundi,2000,21.6
+Cabo Verde,2010,167.5
+Cabo Verde,2005,131.2
+Cabo Verde,2000,92.2
+Cambodia,2010,125.1
+Cambodia,2005,104.7
+Cambodia,2000,59.1
+Cameroon,2010,113.7
+Cameroon,2005,93.7
+Cameroon,2000,71.9
+Canada,2010,4455.8
+Canada,2005,3446.7
+Canada,2000,2520.3
+Central African Republic,2010,30.8
+Central African Republic,2005,29.7
+Central African Republic,2000,29.4
+Chad,2010,57.1
+Chad,2005,63.5
+Chad,2000,41.4
+Chile,2010,1312.0
+Chile,2005,834.3
+Chile,2000,738.3
+China,2010,367.3
+China,2005,189.5
+China,2000,107.3
+Colombia,2010,633.7
+Colombia,2005,423.4
+Colombia,2000,345.7
+Comoros,2010,40.5
+Comoros,2005,48.3
+Comoros,2000,34.5
+Congo,2010,95.4
+Congo,2005,81.7
+Congo,2000,59.0
+Cook Islands,2010,398.4
+Cook Islands,2005,366.9
+Cook Islands,2000,242.8
+Costa Rica,2010,1118.8
+Costa Rica,2005,710.4
+Costa Rica,2000,509.6
+Ivory Coast,2010,134.2
+Ivory Coast,2005,97.7
+Ivory Coast,2000,106.7
+Croatia,2010,1461.7
+Croatia,2005,1071.0
+Croatia,2000,847.1
+Cuba,2010,413.7
+Cuba,2005,255.4
+Cuba,2000,147.2
+Cyprus,2010,2221.7
+Cyprus,2005,1576.3
+Cyprus,2000,1107.0
+Czech Republic,2010,1882.6
+Czech Republic,2005,1476.7
+Czech Republic,2000,981.0
+Democratic Republic of the Congo,2010,26.2
+Democratic Republic of the Congo,2005,15.6
+Democratic Republic of the Congo,2000,11.6
+Denmark,2010,4505.7
+Denmark,2005,3247.8
+Denmark,2000,2511.4
+Djibouti,2010,206.8
+Djibouti,2005,131.5
+Djibouti,2000,89.6
+Dominica,2010,733.6
+Dominica,2005,442.2
+Dominica,2000,369.2
+Dominican Republic,2010,504.0
+Dominican Republic,2005,333.3
+Dominican Republic,2000,323.1
+Ecuador,2010,636.1
+Ecuador,2005,450.0
+Ecuador,2000,198.1
+Egypt,2010,294.6
+Egypt,2005,230.3
+Egypt,2000,199.5
+El Salvador,2010,456.7
+El Salvador,2005,408.5
+El Salvador,2000,370.9
+Equatorial Guinea,2010,1221.6
+Equatorial Guinea,2005,402.9
+Equatorial Guinea,2000,180.6
+Eritrea,2010,15.7
+Eritrea,2005,15.6
+Eritrea,2000,21.5
+Estonia,2010,1268.8
+Estonia,2005,821.0
+Estonia,2000,509.1
+Ethiopia,2010,46.0
+Ethiopia,2005,25.5
+Ethiopia,2000,20.0
+Fiji,2010,193.0
+Fiji,2005,156.0
+Fiji,2000,133.4
+Finland,2010,3245.9
+Finland,2005,2593.2
+Finland,2000,1854.9
+France,2010,4026.6
+France,2005,3265.7
+France,2000,2553.5
+Gabon,2010,490.7
+Gabon,2005,385.3
+Gabon,2000,338.5
+Gambia,2010,92.1
+Gambia,2005,74.7
+Gambia,2000,65.8
+Georgia,2010,514.5
+Georgia,2005,302.6
+Georgia,2000,143.5
+Germany,2010,4347.2
+Germany,2005,3361.9
+Germany,2000,2679.0
+Ghana,2010,87.7
+Ghana,2005,85.8
+Ghana,2000,46.3
+Greece,2010,2584.6
+Greece,2005,2357.0
+Greece,2000,1452.6
+Grenada,2010,620.9
+Grenada,2005,609.0
+Grenada,2000,476.0
+Guatemala,2010,327.8
+Guatemala,2005,262.8
+Guatemala,2000,197.1
+Guinea,2010,61.8
+Guinea,2005,48.8
+Guinea,2000,43.2
+Guinea-Bissau,2010,82.1
+Guinea-Bissau,2005,57.3
+Guinea-Bissau,2000,85.7
+Guyana,2010,195.0
+Guyana,2005,133.1
+Guyana,2000,127.3
+Haiti,2010,74.5
+Haiti,2005,45.5
+Haiti,2000,61.6
+Honduras,2010,331.2
+Honduras,2005,251.2
+Honduras,2000,169.3
+Hungary,2010,1653.9
+Hungary,2005,1432.1
+Hungary,2000,851.9
+Iceland,2010,3351.4
+Iceland,2005,3387.8
+Iceland,2000,2760.8
+India,2010,127.9
+India,2005,94.9
+India,2000,66.0
+Indonesia,2010,125.4
+Indonesia,2005,87.6
+Indonesia,2000,46.5
+Iran,2010,1097.8
+Iran,2005,523.2
+Iran,2000,305.9
+Iraq,2010,117.2
+Iraq,2005,107.9
+Iraq,2000,16.0
+Ireland,2010,3824.7
+Ireland,2005,2972.0
+Ireland,2000,1774.3
+Israel,2010,2052.7
+Israel,2005,1786.7
+Israel,2000,1722.0
+Italy,2010,3025.7
+Italy,2005,2478.8
+Italy,2000,2028.6
+Jamaica,2010,391.3
+Jamaica,2005,284.7
+Jamaica,2000,326.6
+Japan,2010,3213.5
+Japan,2005,2491.0
+Japan,2000,1969.1
+Jordan,2010,480.7
+Jordan,2005,397.7
+Jordan,2000,309.4
+Kazakhstan,2010,531.5
+Kazakhstan,2005,356.0
+Kazakhstan,2000,203.7
+Kenya,2010,71.5
+Kenya,2005,58.5
+Kenya,2000,53.3
+Kiribati,2010,260.7
+Kiribati,2005,233.3
+Kiribati,2000,166.8
+Kuwait,2010,1032.2
+Kuwait,2005,1143.1
+Kuwait,2000,924.9
+Kyrgyzstan,2010,152.9
+Kyrgyzstan,2005,102.6
+Kyrgyzstan,2000,61.8
+Laos,2010,65.1
+Laos,2005,72.6
+Laos,2000,39.5
+Latvia,2010,1103.8
+Latvia,2005,825.9
+Latvia,2000,479.1
+Lebanon,2010,988.1
+Lebanon,2005,746.6
+Lebanon,2000,960.9
+Lesotho,2010,191.5
+Lesotho,2005,81.5
+Lesotho,2000,71.5
+Liberia,2010,71.5
+Liberia,2005,27.0
+Liberia,2000,17.8
+Libya,2010,572.7
+Libya,2005,379.6
+Libya,2000,436.0
+Lithuania,2010,1282.9
+Lithuania,2005,832.2
+Lithuania,2000,559.6
+Luxembourg,2010,6172.7
+Luxembourg,2005,5472.4
+Luxembourg,2000,4036.5
+Madagascar,2010,41.8
+Madagascar,2005,41.6
+Madagascar,2000,39.2
+Malawi,2010,72.7
+Malawi,2005,52.5
+Malawi,2000,35.8
+Malaysia,2010,604.1
+Malaysia,2005,391.4
+Malaysia,2000,282.3
+Maldives,2010,471.4
+Maldives,2005,369.6
+Maldives,2000,274.3
+Mali,2010,83.3
+Mali,2005,64.0
+Mali,2000,51.1
+Malta,2010,2319.9
+Malta,2005,1964.8
+Malta,2000,1248.1
+Marshall Islands,2010,393.0
+Marshall Islands,2005,339.6
+Marshall Islands,2000,332.6
+Mauritania,2010,133.8
+Mauritania,2005,77.1
+Mauritania,2000,76.0
+Mauritius,2010,794.2
+Mauritius,2005,479.7
+Mauritius,2000,307.7
+Mexico,2010,1002.6
+Mexico,2005,731.6
+Mexico,2000,509.2
+Micronesia,2010,488.4
+Micronesia,2005,381.0
+Micronesia,2000,209.5
+Monaco,2010,5688.8
+Monaco,2005,4347.6
+Monaco,2000,3091.4
+Mongolia,2010,255.8
+Mongolia,2005,172.7
+Mongolia,2000,91.8
+Montenegro,2010,947.9
+Montenegro,2005,729.6
+Montenegro,2000,491.0
+Morocco,2010,282.0
+Morocco,2005,181.6
+Morocco,2000,109.6
+Mozambique,2010,51.1
+Mozambique,2005,45.5
+Mozambique,2000,27.3
+Myanmar,2010,22.8
+Myanmar,2005,18.0
+Myanmar,2000,12.0
+Namibia,2010,553.6
+Namibia,2005,390.9
+Namibia,2000,243.2
+Nauru,2010,216.5
+Nauru,2005,313.2
+Nauru,2000,431.1
+Nepal,2010,78.5
+Nepal,2005,58.9
+Nepal,2000,45.6
+Netherlands,2010,5040.6
+Netherlands,2005,3823.4
+Netherlands,2000,2349.0
+New Zealand,2010,3031.7
+New Zealand,2005,2117.2
+New Zealand,2000,1606.5
+Nicaragua,2010,275.4
+Nicaragua,2005,184.2
+Nicaragua,2000,131.9
+Niger,2010,43.0
+Niger,2005,45.9
+Niger,2000,31.4
+Nigeria,2010,131.4
+Nigeria,2005,115.7
+Nigeria,2000,60.4
+Niue,2010,1864.1
+Niue,2005,1298.4
+Niue,2000,814.3
+Norway,2010,5801.7
+Norway,2005,4557.4
+Norway,2000,3308.7
+Oman,2010,605.1
+Oman,2005,683.4
+Oman,2000,656.8
+Pakistan,2010,79.7
+Pakistan,2005,68.3
+Pakistan,2000,49.4
+Palau,2010,1659.3
+Palau,2005,1381.7
+Palau,2000,1566.0
+Panama,2010,1163.4
+Panama,2005,660.0
+Panama,2000,542.0
+Papua New Guinea,2010,101.1
+Papua New Guinea,2005,74.5
+Papua New Guinea,2000,68.9
+Paraguay,2010,515.6
+Paraguay,2005,253.1
+Paraguay,2000,328.6
+Peru,2010,460.5
+Peru,2005,283.2
+Peru,2000,229.6
+Philippines,2010,166.8
+Philippines,2005,119.0
+Philippines,2000,76.5
+Poland,2010,1400.3
+Poland,2005,855.5
+Poland,2000,583.4
+Portugal,2010,2758.3
+Portugal,2005,2216.6
+Portugal,2000,1659.2
+Qatar,2010,1629.3
+Qatar,2005,2487.0
+Qatar,2000,1436.7
+South Korea,2010,2086.2
+South Korea,2005,1282.1
+South Korea,2000,743.9
+Moldova,2010,369.7
+Moldova,2005,215.9
+Moldova,2000,97.7
+Romania,2010,880.9
+Romania,2005,514.1
+Romania,2000,247.8
+Russian Federation,2010,1297.3
+Russian Federation,2005,614.4
+Russian Federation,2000,369.3
+Rwanda,2010,126.5
+Rwanda,2005,49.9
+Rwanda,2000,23.6
+Saint Kitts and Nevis,2010,949.1
+Saint Kitts and Nevis,2005,559.8
+Saint Kitts and Nevis,2000,533.1
+Saint Lucia,2010,859.3
+Saint Lucia,2005,579.5
+Saint Lucia,2000,451.9
+Saint Vincent and the Grenadines,2010,491.2
+Saint Vincent and the Grenadines,2005,323.5
+Saint Vincent and the Grenadines,2000,237.3
+Samoa,2010,272.5
+Samoa,2005,190.0
+Samoa,2000,165.2
+San Marino,2010,2591.1
+San Marino,2005,2900.1
+San Marino,2000,2469.5
+Sao Tome and Principe,2010,130.6
+Sao Tome and Principe,2005,153.4
+Sao Tome and Principe,2000,311.1
+Saudi Arabia,2010,947.4
+Saudi Arabia,2005,724.0
+Saudi Arabia,2000,753.6
+Senegal,2010,89.2
+Senegal,2005,86.7
+Senegal,2000,60.5
+Serbia,2010,1183.4
+Serbia,2005,771.0
+Serbia,2000,313.0
+Seychelles,2010,849.8
+Seychelles,2005,689.2
+Seychelles,2000,812.9
+Sierra Leone,2010,170.7
+Sierra Leone,2005,135.9
+Sierra Leone,2000,121.3
+Singapore,2010,2408.2
+Singapore,2005,1632.9
+Singapore,2000,954.4
+Slovakia,2010,2088.2
+Slovakia,2005,1140.0
+Slovakia,2000,604.1
+Slovenia,2010,2366.4
+Slovenia,2005,1964.4
+Slovenia,2000,1451.7
+Solomon Islands,2010,202.9
+Solomon Islands,2005,162.6
+Solomon Islands,2000,90.7
+Somalia,2000,16.9
+South Africa,2010,893.6
+South Africa,2005,739.9
+South Africa,2000,551.4
+Spain,2010,3038.9
+Spain,2005,2289.3
+Spain,2000,1545.8
+Sri Lanka,2010,174.4
+Sri Lanka,2005,140.7
+Sri Lanka,2000,101.0
+Sudan,2010,164.5
+Sudan,2005,78.1
+Sudan,2000,48.6
+Suriname,2010,458.1
+Suriname,2005,415.1
+Suriname,2000,385.2
+Swaziland,2010,442.5
+Swaziland,2005,307.1
+Swaziland,2000,197.1
+Sweden,2010,3731.5
+Sweden,2005,2969.4
+Sweden,2000,2289.1
+Switzerland,2010,5328.1
+Switzerland,2005,4027.3
+Switzerland,2000,3230.0
+Syrian Arab Republic,2010,195.4
+Syrian Arab Republic,2005,184.8
+Syrian Arab Republic,2000,177.6
+Tajikistan,2010,116.4
+Tajikistan,2005,68.8
+Tajikistan,2000,40.4
+Thailand,2010,337.7
+Thailand,2005,241.0
+Thailand,2000,167.7
+The former Yugoslav Republic of Macedonia,2010,772.0
+The former Yugoslav Republic of Macedonia,2005,619.9
+The former Yugoslav Republic of Macedonia,2000,507.8
+Timor-Leste,2010,85.7
+Timor-Leste,2005,70.6
+Timor-Leste,2000,52.0
+Togo,2010,71.1
+Togo,2005,54.9
+Togo,2000,42.4
+Tonga,2010,220.0
+Tonga,2005,269.6
+Tonga,2000,162.1
+Trinidad and Tobago,2010,1351.4
+Trinidad and Tobago,2005,1069.2
+Trinidad and Tobago,2000,508.9
+Tunisia,2010,631.3
+Tunisia,2005,404.6
+Tunisia,2000,293.1
+Turkey,2010,1071.5
+Turkey,2005,594.5
+Turkey,2000,436.0
+Turkmenistan,2010,173.7
+Turkmenistan,2005,140.6
+Turkmenistan,2000,136.6
+Tuvalu,2010,365.3
+Tuvalu,2005,415.3
+Tuvalu,2000,225.3
+Uganda,2010,115.1
+Uganda,2005,82.7
+Uganda,2000,45.5
+Ukraine,2010,520.4
+Ukraine,2005,357.7
+Ukraine,2000,183.7
+United Arab Emirates,2010,1366.1
+United Arab Emirates,2005,932.5
+United Arab Emirates,2000,865.4
+United Kingdom,2010,3384.0
+United Kingdom,2005,2733.0
+United Kingdom,2000,1830.5
+United Republic of Tanzania,2010,99.9
+United Republic of Tanzania,2005,41.8
+United Republic of Tanzania,2000,25.3
+United States,2010,8254.2
+United States,2005,6732.2
+United States,2000,4790.0
+Uruguay,2010,1223.6
+Uruguay,2005,793.4
+Uruguay,2000,952.9
+Uzbekistan,2010,168.2
+Uzbekistan,2005,102.8
+Uzbekistan,2000,76.1
+Vanuatu,2010,207.8
+Vanuatu,2005,115.4
+Vanuatu,2000,121.5
+Venezuela,2010,570.0
+Venezuela,2005,535.7
+Venezuela,2000,480.9
+Vietnam,2010,215.8
+Vietnam,2005,122.8
+Vietnam,2000,71.8
+Yemen,2010,128.5
+Yemen,2005,116.4
+Yemen,2000,87.8
+Zambia,2010,93.3
+Zambia,2005,81.9
+Zambia,2000,52.0

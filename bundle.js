@@ -9097,6 +9097,7 @@ function ready(error, countries, disease) {
      .attr('class', 'country')
      .attr('fill', '#efefef')
      .attr('stroke', '#C0D3D9')
+     .attr('stroke-width', 1)
      .transition().duration(500)
      .style('opacity', 1)
      .style('fill', function(d) {
@@ -9262,6 +9263,7 @@ function mouseActions(diseaseByCountry, statsByCountry) {
      .on('mouseover', function(d, i) {
        const country = d.properties.name;
        let values = objectForDetails[d.properties.name];
+       console.log(values);
        if (values === -1 || values === undefined ) {
          values = 'No data available';
      }

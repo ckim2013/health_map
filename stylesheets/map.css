@@ -5,23 +5,21 @@ body, html {
   letter-spacing: 2px;
 }
 
-.site-container {
-  /*display: flex;*/
-}
-
 .allDropdownsContainer {
   display: flex;
   flex-direction: column;
+  width: 1500px;
+}
+
+.site-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
   text-align: center;
   font-weight: bold;
-}
-
-path {
-  transition: 20;
-  opacity: 10;
 }
 
 #map {
@@ -40,6 +38,7 @@ select {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 span {
@@ -66,6 +65,18 @@ span {
   background-color: green;
 }
 
+path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 6s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0
+  }
+}
+
 .tooltip {
   background: #eee;
   box-shadow: 0 0 5px #999999;
@@ -79,6 +90,13 @@ span {
   top: 100px;
   width: 100px;
   z-index: 10;
+}
+
+.allDropdownsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /*width: 300px*/
 }
 
 .modal {
