@@ -9024,12 +9024,12 @@ const svg = __WEBPACK_IMPORTED_MODULE_0_d3__["h" /* select */]('#map')
               .attr('height', height);
 
 const projection = __WEBPACK_IMPORTED_MODULE_0_d3__["c" /* geoMercator */]()
-                   .rotate([-9.5, 0])
-                   .center([0, 45])
-                   .translate([width/2, height/2]);
+                     .rotate([-9.5, 0])
+                     .center([0, 45])
+                     .translate([width/2, height/2]);
 
 const path = __WEBPACK_IMPORTED_MODULE_0_d3__["d" /* geoPath */]()
-             .projection(projection);
+               .projection(projection);
 
 const lsW = 20;
 const lsH = 20;
@@ -9067,7 +9067,6 @@ tooltip.append('div')
 firstMap('data/aids_2000_data.csv');
 legendSetup('aids');
 
-// Function to render the map for the very first time
 function firstMap(dataSet) {
  __WEBPACK_IMPORTED_MODULE_0_d3__["f" /* queue */]()
    .defer(__WEBPACK_IMPORTED_MODULE_0_d3__["e" /* json */], 'data/countries.geo.json')
@@ -9092,8 +9091,6 @@ function ready(error, countries, disease) {
 
   let diseaseByCountry = makeObject(disease);
 
-  // svg.select('g').remove();
-
   svg.append('g')
      .selectAll('.country')
      .data(countries.features)
@@ -9102,7 +9099,7 @@ function ready(error, countries, disease) {
      .attr('d', path)
      .attr('class', 'country')
      .attr('fill', '#efefef')
-     .attr('stroke', '#C0D3D9')
+     .attr('stroke', '#aab8be')
      .attr('stroke-width', 1)
      .transition().duration(500)
      .style('opacity', 1)
@@ -9117,14 +9114,13 @@ function ready(error, countries, disease) {
 
 function legendSetup(disease) {
   svg.selectAll('g.legend').remove();
-
   let ultimateLegendLabels;
   let stat = document.getElementById('statdrop').value;
   let legend = svg.selectAll('g.legend')
                   .data(color.range().map(function(legendColor) {
                     let d = color.invertExtent(legendColor);
                     if (!d[0] && d[0] !== 0) d[0] = -1;
-                    if (!d[1] && d[1] !== 0) d[1] = 100000;
+                    if (!d[1] && d[1] !== 0) d[1] = 100001;
                     return d;
                   }))
                   .enter().append('g')
@@ -9132,12 +9128,16 @@ function legendSetup(disease) {
 
   if (disease === 'aids' && stat === 'deaths') {
     ultimateLegendLabels = redDeathLegendLabels;
+    setLegendTitle('deaths');
   } else if (disease === 'malaria' && stat === 'deaths') {
     ultimateLegendLabels = blueDeathLegendLabels;
+    setLegendTitle('deaths');
   } else if (stat === 'population') {
     ultimateLegendLabels = orangeFrequencyLegendLabels;
+    setLegendTitle('population');
   } else if (stat === 'healthspending') {
     ultimateLegendLabels = greenMoneyLegendLabels;
+    setLegendTitle('healthspending');
   }
 
   legend.append('rect')
@@ -9160,6 +9160,19 @@ function legendSetup(disease) {
         .text(function(d, i) {
           return ultimateLegendLabels[i];
         });
+
+}
+
+function setLegendTitle(type) {
+  let title;
+  if (type === 'deaths') {
+    title = 'Approximate number of deaths';
+  } else if (type === 'population') {
+    title = 'Need to think of a title';
+  } else if (type === 'healthspending') {
+    title = 'PPP on healthcare spending ($)';
+  }
+  document.getElementById('legend-title').innerHTML = title;
 }
 
 let years = ['2000', '2005', '2010', '2015', '2016'];
@@ -9198,23 +9211,24 @@ function mapSetup() {
 }
 
 function selectColor(disease, stat) {
+  let ultimateDomain;
+  let ultimateColor;
   if (stat === 'population') {
-    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-              .domain(orangeFrequencyDomain)
-              .range(orangeFrequencyColor);
+    ultimateDomain = orangeFrequencyDomain;
+    ultimateColor = orangeFrequencyColor;
   } else if (stat === 'healthspending') {
-    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-              .domain(greenMoneyDomain)
-              .range(greenMoneyColor);
+    ultimateDomain = greenMoneyDomain;
+    ultimateColor = greenMoneyColor;
   } else if (disease === 'malaria') {
-    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-              .domain(blueDeathDomain)
-              .range(blueDeathColor);
-  } else if (disease === 'aids'){
-    color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
-              .domain(redDeathDomain)
-              .range(redDeathColor);
+    ultimateDomain = blueDeathDomain;
+    ultimateColor = blueDeathColor;
+  } else if (disease === 'aids') {
+    ultimateDomain = redDeathDomain;
+    ultimateColor = redDeathColor;
   }
+  color = __WEBPACK_IMPORTED_MODULE_0_d3__["g" /* scaleThreshold */]()
+            .domain(ultimateDomain)
+            .range(ultimateColor);
 }
 
 function update(deathFilepath) {
