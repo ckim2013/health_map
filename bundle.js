@@ -9034,12 +9034,12 @@ const path = __WEBPACK_IMPORTED_MODULE_0_d3__["d" /* geoPath */]()
 const lsW = 20;
 const lsH = 20;
 
-const redDeathLegendLabels = ["No data", "0 - 5000", "5000 - 10000", "10000 - 50000", "> 50000"];
+const redDeathLegendLabels = ["No data", "0 - 500", "501 - 5000", "5001 - 10000", "10001 - 50000", "50001 - 100000", "> 100000"];
 const blueDeathLegendLabels = ["No data", "0 - 5000", "5000 - 10000", "10000 - 30000", "> 30000"];
 const orangeFrequencyLegendLabels = ["No data", "test1", "test2", "test3", "test4"];
 const greenMoneyLegendLabels = ["No data", "test5", "test6", "test7", "test8"];
 
-const redDeathColor = ["#edeced", "#FF8E8B", "#DE5855", "#A11B17", "#780300"];
+const redDeathColor = ["#edeced", "#ffcccc", "#ffb2b2", "#ff9999", "#ff7f7f", "#ff6666", "#ff4c4c"];
 const redDeathDomain = [0, 500, 5000, 10000, 50000, 100000];
 const blueDeathColor = ["#edeced", "#7070B7", "#4A4A9C", "#1F1F70", "#0C0C54"];
 const blueDeathDomain = [0, 100, 5000, 10000, 30000, 100000];
