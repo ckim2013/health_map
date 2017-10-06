@@ -9168,7 +9168,7 @@ function setLegendTitle(type) {
   if (type === 'deaths') {
     title = 'Approximate number of deaths';
   } else if (type === 'population') {
-    title = 'Need to think of a title';
+    title = '# deaths / # population x 10,000';
   } else if (type === 'healthspending') {
     title = 'PPP on healthcare spending ($)';
   }
@@ -9287,7 +9287,6 @@ function updateMap(error, disease) {
 }
 
 function mouseActions(objectByCountry, statsByCountry) {
-  // let objectByCountry = statsByCountry ? statsByCountry : objectByCountry;
   svg.selectAll('path')
      .on('mouseover', function(d, i) {
        const country = d.properties.name;
