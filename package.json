@@ -19,12 +19,12 @@
   },
   "homepage": "https://github.com/ckim2013/health_map#readme",
   "dependencies": {
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
-    "d3": "^4.10.2",
-    "earth-topojson": "^1.0.0",
-    "http-server": "^0.10.0",
-    "topojson": "^3.0.2",
-    "webpack": "^3.6.0"
+    "babel": "6.23.0",
+    "babel-cli": "6.26.0",
+    "d3": "4.10.2",
+    "earth-topojson": "1.0.0",
+    "http-server": "0.10.0",
+    "topojson": "3.0.2",
+    "webpack": "3.6.0"
   }
 }
